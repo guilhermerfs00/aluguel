@@ -25,20 +25,20 @@ public class Pedido {
     @Column(name = "parecer")
     private Boolean parecer;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "agente_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "agente_id")
     private Agente agente;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "automovel_id", referencedColumnName = "id")
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name="cidade_id")
     private Automovel automovel;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contrato_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "contrato_id")
     private Contrato contrato;
 
 }

@@ -35,8 +35,8 @@ public class Cliente {
     @Column(name = "endereco")
     private String endereco;
 
-    @ManyToOne
-    @JoinColumn(name = "empregadores_id")
-    private Empregadores empregadores;
+    @OneToMany
+    @JoinColumn(name="empregadores_id")
+    private List<Empregadores> empregadores;
 
 }

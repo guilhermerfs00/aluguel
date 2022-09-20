@@ -3,6 +3,7 @@ package com.puc.aluguel.mapper;
 import com.puc.aluguel.model.dto.PedidoDTO;
 import com.puc.aluguel.model.entity.Pedido;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.List;
 public interface PedidoMapper {
 
     PedidoMapper INSTANCE = Mappers.getMapper(PedidoMapper.class);
-
     PedidoDTO entityToDto(Pedido entity);
 
     Pedido dtoToEntity(PedidoDTO dto);

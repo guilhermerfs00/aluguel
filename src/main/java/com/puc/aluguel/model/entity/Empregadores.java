@@ -23,4 +23,9 @@ public class Empregadores {
     @Column(name = "nome")
     private String nome;
 
+
+    @ManyToOne
+    @JoinColumn(name="cliente_id")
+    private Cliente cliente;
+
 }

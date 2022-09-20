@@ -15,8 +15,8 @@ public class ClienteService {
     ClienteRepository repository;
 
     public ClienteDTO criarCliente(ClienteDTO clienteDTO) {
-        var patient = repository.save(ClienteMapper.INSTANCE.dtoToEntity(clienteDTO));
-        return ClienteMapper.INSTANCE.entityToDto(patient);
+        var cliente = repository.save(ClienteMapper.INSTANCE.dtoToEntity(clienteDTO));
+        return ClienteMapper.INSTANCE.entityToDto(cliente);
     }
 
     public ClienteDTO buscarClienteDTOPorId(Long idCliente) {
