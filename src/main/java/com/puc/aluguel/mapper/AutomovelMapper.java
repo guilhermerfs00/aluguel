@@ -1,9 +1,7 @@
 package com.puc.aluguel.mapper;
 
 import com.puc.aluguel.model.dto.AutomovelDTO;
-import com.puc.aluguel.model.dto.PedidoDTO;
 import com.puc.aluguel.model.entity.Automovel;
-import com.puc.aluguel.model.entity.Pedido;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

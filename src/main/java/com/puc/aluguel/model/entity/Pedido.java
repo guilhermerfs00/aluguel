@@ -4,7 +4,6 @@ package com.puc.aluguel.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Table(name = "pedido")
 @Entity

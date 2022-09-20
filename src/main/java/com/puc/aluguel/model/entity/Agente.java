@@ -1,7 +1,6 @@
 package com.puc.aluguel.model.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;

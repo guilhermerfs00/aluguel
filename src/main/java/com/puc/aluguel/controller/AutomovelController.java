@@ -3,11 +3,7 @@ package com.puc.aluguel.controller;
 
 import com.puc.aluguel.exceptions.BusinesException;
 import com.puc.aluguel.model.dto.AutomovelDTO;
-import com.puc.aluguel.model.dto.ClienteDTO;
-import com.puc.aluguel.model.enums.TipoRegistroEnum;
 import com.puc.aluguel.services.AutomovelService;
-import com.puc.aluguel.services.ClienteService;
-import com.puc.aluguel.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -2,7 +2,6 @@ package com.puc.aluguel.controller;
 
 
 import com.puc.aluguel.exceptions.BusinesException;
-import com.puc.aluguel.model.dto.AutomovelDTO;
 import com.puc.aluguel.model.dto.ClienteDTO;
 import com.puc.aluguel.model.dto.PedidoDTO;
 import com.puc.aluguel.model.enums.TipoRegistroEnum;
@@ -35,7 +34,7 @@ public class ClienteController {
     }
 
     @PostMapping(value = "/introduzir-pedido/{idAutomovel}/{tipoRegistro}/{idCliente}")
-    public ResponseEntity introduzirPedido(@PathVariable("idAutomovel") Long idAutomovel,
+    public ResponseEntity<PedidoDTO> introduzirPedido(@PathVariable("idAutomovel") Long idAutomovel,
                                            @PathVariable("tipoRegistro") TipoRegistroEnum tipoRegistroEnum,
                                            @PathVariable("idCliente") Long idCliente) {
         try {
