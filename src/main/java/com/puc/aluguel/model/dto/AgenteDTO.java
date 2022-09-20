@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AgenteDTO extends UsuarioDTO {
+public class AgenteDTO {
 
     private Long id;
     private String nome;

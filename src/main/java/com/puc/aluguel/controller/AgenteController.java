@@ -3,6 +3,7 @@ package com.puc.aluguel.controller;
 
 import com.puc.aluguel.model.dto.AgenteDTO;
 import com.puc.aluguel.model.dto.AgentePedidoDTO;
+import com.puc.aluguel.model.dto.PedidoDTO;
 import com.puc.aluguel.services.AgenteService;
 import com.puc.aluguel.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class AgenteController {
     }
 
     @PostMapping(value = "/avaliar-pedido")
-    public ResponseEntity<AgenteDTO> avaliarPedido(@RequestBody AgentePedidoDTO agentePedidoDTO) {
+    public ResponseEntity<PedidoDTO> avaliarPedido(@RequestBody AgentePedidoDTO agentePedidoDTO) {
         var response = pedidoService.avaliarPedido(agentePedidoDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

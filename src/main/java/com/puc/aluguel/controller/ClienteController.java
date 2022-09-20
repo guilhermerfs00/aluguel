@@ -1,6 +1,7 @@
 package com.puc.aluguel.controller;
 
 
+import com.puc.aluguel.model.dto.AutomovelDTO;
 import com.puc.aluguel.model.dto.ClienteDTO;
 import com.puc.aluguel.model.dto.PedidoDTO;
 import com.puc.aluguel.model.enums.TipoRegistroEnum;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ClienteController {
@@ -36,13 +39,9 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PostMapping(value = "/consultar-pedido/{id}/{nomeCliente}/{nomeAgente}")
-    public ResponseEntity consultarPedido(@RequestParam(value = "id", required = false) Long id,
-                                          @RequestParam(value = "nomeCliente", required = false) String nomeCliente,
-                                          @RequestParam(value = "nomeAgente", required = false) String nomeAgente) {
-
-        var response = pedidoService.filtrarPedido(id, nomeCliente, nomeAgente);
-
+    @GetMapping(value = "/consultar-pedido")
+    public ResponseEntity<List<PedidoDTO>> consultarPedido() {
+        var response = pedidoService.filtrarPedido();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

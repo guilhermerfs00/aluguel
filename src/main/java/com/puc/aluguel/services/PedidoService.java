@@ -55,8 +55,8 @@ public class PedidoService {
         return PedidoMapper.INSTANCE.entityToDto(repository.save(pedido));
     }
 
-    public List<PedidoDTO> filtrarPedido(Long id, String nomeCliente, String nomeAgente) {
-        var pedidoList = repository.pedidoFiltro(id, nomeCliente, nomeAgente);
+    public List<PedidoDTO> filtrarPedido() {
+        var pedidoList = repository.findAll();
         return PedidoMapper.INSTANCE.entityToDto(pedidoList);
     }
 
