@@ -5,6 +5,7 @@ import com.puc.aluguel.mapper.PedidoMapper;
 import com.puc.aluguel.model.dto.AgentePedidoDTO;
 import com.puc.aluguel.model.dto.ContratoDTO;
 import com.puc.aluguel.model.dto.PedidoDTO;
+import com.puc.aluguel.model.dto.UsuarioDTO;
 import com.puc.aluguel.model.entity.Contrato;
 import com.puc.aluguel.model.entity.Pedido;
 import com.puc.aluguel.model.enums.TipoRegistroEnum;
@@ -31,21 +32,19 @@ public class PedidoService {
     @Autowired
     ClienteService clienteService;
 
-
+    @Autowired
+    UsuarioService usuarioService;
     @Autowired
     ContratoService contratoService;
 
-    public PedidoDTO criarPedido(PedidoDTO pedidoDTO) {
-        var patient = repository.save(PedidoMapper.INSTANCE.dtoToEntity(pedidoDTO));
-        return PedidoMapper.INSTANCE.entityToDto(patient);
-    }
+    public PedidoDTO criarPedido(Long idAutomovel, Long idCliente, TipoRegistroEnum tipoRegistroEnum, String usuario, String senha) {
 
-    public PedidoDTO criarPedido(Long idAutomovel, Long idCliente, TipoRegistroEnum tipoRegistroEnum) {
+        var cliente = clienteService.buscarEntityClienteDTOPorId(idCliente);
+
+        usuarioService.validaUsuarioCliente(usuario, senha);
 
         var pedido = repository.save(PedidoMapper.INSTANCE.dtoToEntity(PedidoDTO.builder().build()));
-
         var contrato = gerarContratoDTO(tipoRegistroEnum);
-        var cliente = clienteService.buscarEntityClienteDTOPorId(idCliente);
         var automovel = automovelService.buscarEntityAutomovelPorId(idAutomovel);
 
         pedido.setContrato(contrato);
@@ -56,20 +55,13 @@ public class PedidoService {
     }
 
     public Contrato gerarContratoDTO(TipoRegistroEnum tipoRegistroEnum) {
-        return contratoService.gerarContrato(ContratoDTO.builder()
-                .dataInicioContrato(LocalDate.now())
-                .dataFimContrato(LocalDate.now().plusDays(4))
-                .tipoRegistroEnum(tipoRegistroEnum)
-                .build());
-    }
-
-
-    public List<PedidoDTO> filtrarPedido() {
-        var pedidoList = repository.findAll();
-        return PedidoMapper.INSTANCE.entityToDto(pedidoList);
+        return contratoService.gerarContrato(ContratoDTO.builder().dataInicioContrato(LocalDate.now()).dataFimContrato(LocalDate.now().plusDays(4)).tipoRegistroEnum(tipoRegistroEnum).build());
     }
 
     public PedidoDTO avaliarPedido(AgentePedidoDTO agentePedidoDTO) {
+
+        usuarioService.validaUsuarioAgente(agentePedidoDTO.getEmail(), agentePedidoDTO.getSenha());
+
         var pedido = buscarPedidoPorId(agentePedidoDTO.getId());
 
         var agente = agenteService.buscarAgentePorId(agentePedidoDTO.getIdAgente());
@@ -85,4 +77,15 @@ public class PedidoService {
         return repository.findById(id).orElseThrow(() -> new BusinesException("Erro ao buscar pedido"));
     }
 
+    public PedidoDTO consultarPedidoPorCliente(String email) {
+        return PedidoMapper.INSTANCE.entityToDto(repository.buscarPedidoPorEmailCliente(email).orElseThrow(() -> new BusinesException("Erro ao buscar pedido")));
+    }
+
+    public PedidoDTO consultarPedidoPorAgente(String email) {
+        return PedidoMapper.INSTANCE.entityToDto(repository.buscarPedidoPorEmailAgente(email).orElseThrow(() -> new BusinesException("Erro ao buscar pedido")));
+    }
+
+    public List<PedidoDTO> consultarTodosPedidos() {
+        return PedidoMapper.INSTANCE.entityToDto(repository.findAll());
+    }
 }

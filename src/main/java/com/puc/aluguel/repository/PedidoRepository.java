@@ -7,15 +7,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
-    @Query("SELECT p FROM Pedido p WHERE " +
-            "(:id is null or p.id = :id) " +
-            "and (:nomeCliente is null or p.cliente.nome = :nomeCliente)" +
-            "and (:nomeAgente is null or p.agente.nome = :nomeAgente)")
-    List<Pedido> pedidoFiltro(@Param("id") Long id,
-                              @Param("nomeCliente") String nomeCliente,
-                              @Param("nomeAgente") String nomeAgente);
+    @Query("SELECT p FROM Pedido p WHERE p.agente.email = :email")
+    Optional<Pedido> buscarPedidoPorEmailAgente(@Param("email") String email);
+
+    @Query("SELECT p FROM Pedido p WHERE p.cliente.email = :email")
+    Optional<Pedido> buscarPedidoPorEmailCliente(@Param("email") String email);
 }

@@ -4,6 +4,7 @@ package com.puc.aluguel.controller;
 import com.puc.aluguel.exceptions.BusinesException;
 import com.puc.aluguel.model.dto.ClienteDTO;
 import com.puc.aluguel.model.dto.PedidoDTO;
+import com.puc.aluguel.model.dto.UsuarioDTO;
 import com.puc.aluguel.model.enums.TipoRegistroEnum;
 import com.puc.aluguel.services.ClienteService;
 import com.puc.aluguel.services.PedidoService;
@@ -34,21 +35,39 @@ public class ClienteController {
     }
 
     @PostMapping(value = "/introduzir-pedido/{idAutomovel}/{tipoRegistro}/{idCliente}")
-    public ResponseEntity<PedidoDTO> introduzirPedido(@PathVariable("idAutomovel") Long idAutomovel,
-                                           @PathVariable("tipoRegistro") TipoRegistroEnum tipoRegistroEnum,
-                                           @PathVariable("idCliente") Long idCliente) {
+    public ResponseEntity<PedidoDTO> introduzirPedido(@PathVariable("idAutomovel") Long idAutomovel, @PathVariable("tipoRegistro") TipoRegistroEnum tipoRegistroEnum, @PathVariable("idCliente") Long idCliente, @RequestBody UsuarioDTO usuarioDTO) {
         try {
-            var response = pedidoService.criarPedido(idAutomovel, idCliente, tipoRegistroEnum);
+            var response = pedidoService.criarPedido(idAutomovel, idCliente, tipoRegistroEnum, usuarioDTO.getEmail(), usuarioDTO.getSenha());
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
             throw new BusinesException(e.getMessage());
         }
     }
 
-    @GetMapping(value = "/consultar-pedido")
-    public ResponseEntity<List<PedidoDTO>> consultarPedido() {
+    @GetMapping(value = "/consultar-pedido-por-agente/{email}")
+    public ResponseEntity<PedidoDTO> consultarPedido(@PathVariable("email") String email) {
         try {
-            var response = pedidoService.filtrarPedido();
+            var response = pedidoService.consultarPedidoPorAgente(email);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            throw new BusinesException(e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/consultar-pedido-por-cliente/{email}")
+    public ResponseEntity<PedidoDTO> consultarPedidoPorCliente(@PathVariable("email") String email) {
+        try {
+            var response = pedidoService.consultarPedidoPorCliente(email);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            throw new BusinesException(e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/consultar-todos-pedidos")
+    public ResponseEntity<List<PedidoDTO>> consultarTodosPedido() {
+        try {
+            var response = pedidoService.consultarTodosPedidos();
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
             throw new BusinesException(e.getMessage());

@@ -18,7 +18,7 @@ public class Pedido {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "concideracaoAgente")
+    @Column(name = "concideracao_agente")
     private String concideracaoAgente;
 
     @Column(name = "parecer")

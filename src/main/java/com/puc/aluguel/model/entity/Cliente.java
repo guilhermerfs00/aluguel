@@ -1,5 +1,6 @@
 package com.puc.aluguel.model.entity;
 
+import com.puc.aluguel.model.enums.TipoUsuarioEnum;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,5 +32,14 @@ public class Cliente {
 
     @Column(name = "endereco")
     private String endereco;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "senha")
+    private String senha;
+
+    @Column(name = "tipo_usuario")
+    private TipoUsuarioEnum tipoUsuarioEnum;
 
 }

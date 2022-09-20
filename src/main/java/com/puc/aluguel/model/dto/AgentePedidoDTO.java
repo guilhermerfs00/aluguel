@@ -15,4 +15,6 @@ public class AgentePedidoDTO {
     private Long idAgente;
     private String concideracao;
     private Boolean parecer;
+    private String email;
+    private String senha;
 }

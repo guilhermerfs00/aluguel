@@ -1,6 +1,7 @@
 package com.puc.aluguel.model.entity;
 
 
+import com.puc.aluguel.model.enums.TipoUsuarioEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,4 +22,12 @@ public class Agente {
     @Column(name = "nome")
     private String nome;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "senha")
+    private Boolean senha;
+
+    @Column(name = "tipo_usuario")
+    private TipoUsuarioEnum tipoUsuarioEnum;
 }

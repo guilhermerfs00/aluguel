@@ -1,16 +1,18 @@
 package com.puc.aluguel.exceptions;
 
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
+import java.util.Date;
+
+@Data
+@Builder
+@AllArgsConstructor
 public class ExceptionResponse {
 
-    private LocalDate timestamp;
+    private Date timestamp;
     private String message;
     private String details;
 
-    public ExceptionResponse(LocalDate timestamp, String message, String details) {
-        this.timestamp = timestamp;
-        this.message = message;
-        this.details = details;
-    }
 }
