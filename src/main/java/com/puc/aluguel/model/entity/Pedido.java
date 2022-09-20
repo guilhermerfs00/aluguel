@@ -25,20 +25,20 @@ public class Pedido {
     @Column(name = "parecer")
     private Boolean parecer;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "agente_id")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "agente_id", referencedColumnName = "id")
     private Agente agente;
 
-    @ManyToOne(cascade=CascadeType.PERSIST)
-    @JoinColumn(name="cidade_id")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="cidade_id", referencedColumnName = "id")
     private Automovel automovel;
 
-    @ManyToOne
-    @JoinColumn(name = "contrato_id")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "contrato_id", referencedColumnName = "id")
     private Contrato contrato;
 
 }

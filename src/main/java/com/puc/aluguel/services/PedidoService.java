@@ -44,17 +44,15 @@ public class PedidoService {
 
         var automovelDTO = automovelService.buscarAutomovelPorId(idAutomovel);
 
-        var contratoDTO = contratoService.gerarContrato(ContratoDTO.builder()
-                .dataInicioContrato(LocalDate.now())
-                .dataFimContrato(LocalDate.now().plusDays(4))
-                .tipoRegistroEnum(tipoRegistroEnum)
-                .build());
+        var contrato = contratoService.gerarContrato(ContratoDTO.builder().dataInicioContrato(LocalDate.now()).dataFimContrato(LocalDate.now().plusDays(4)).tipoRegistroEnum(tipoRegistroEnum).build());
 
-        var pedidoDTO = PedidoDTO.builder().automovel(automovelDTO).cliente(clienteDTO).contrato(contratoDTO).build();
+        var pedidoDTO = PedidoDTO.builder().automovel(automovelDTO).cliente(clienteDTO).build();
 
-        var pedido = repository.save(PedidoMapper.INSTANCE.dtoToEntity(pedidoDTO));
+        var pedido = PedidoMapper.INSTANCE.dtoToEntity(pedidoDTO);
 
-        return PedidoMapper.INSTANCE.entityToDto(pedido);
+        pedido.setContrato(contrato);
+
+        return PedidoMapper.INSTANCE.entityToDto(repository.save(pedido));
     }
 
     public List<PedidoDTO> filtrarPedido(Long id, String nomeCliente, String nomeAgente) {

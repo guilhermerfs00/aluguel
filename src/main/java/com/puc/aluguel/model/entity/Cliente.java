@@ -1,14 +1,11 @@
 package com.puc.aluguel.model.entity;
 
-
-import com.puc.aluguel.model.dto.EmpregadoresDTO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Table(name = "cliente")
 @Entity
@@ -34,9 +31,5 @@ public class Cliente {
 
     @Column(name = "endereco")
     private String endereco;
-
-    @OneToMany
-    @JoinColumn(name="empregadores_id")
-    private List<Empregadores> empregadores;
 
 }
