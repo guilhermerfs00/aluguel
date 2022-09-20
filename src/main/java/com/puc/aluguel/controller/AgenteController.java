@@ -1,6 +1,7 @@
 package com.puc.aluguel.controller;
 
 
+import com.puc.aluguel.exceptions.BusinesException;
 import com.puc.aluguel.model.dto.AgenteDTO;
 import com.puc.aluguel.model.dto.AgentePedidoDTO;
 import com.puc.aluguel.model.dto.PedidoDTO;
@@ -22,13 +23,21 @@ public class AgenteController {
 
     @PostMapping(value = "/criar-agente")
     public ResponseEntity<AgenteDTO> criarAgente(@RequestBody AgenteDTO agenteDTO) {
-        var response = service.criarAgente(agenteDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        try {
+            var response = service.criarAgente(agenteDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            throw new BusinesException(e.getMessage());
+        }
     }
 
     @PostMapping(value = "/avaliar-pedido")
     public ResponseEntity<PedidoDTO> avaliarPedido(@RequestBody AgentePedidoDTO agentePedidoDTO) {
-        var response = pedidoService.avaliarPedido(agentePedidoDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        try {
+            var response = pedidoService.avaliarPedido(agentePedidoDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            throw new BusinesException(e.getMessage());
+        }
     }
 }

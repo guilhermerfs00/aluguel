@@ -13,11 +13,6 @@ public class ContratoService {
     @Autowired
     ContratoRepository repository;
 
-    public ContratoDTO gerarContratoDTO(ContratoDTO contratoDTO) {
-        var contrato = repository.save(ContratoMapper.INSTANCE.dtoToEntity(contratoDTO));
-        return ContratoMapper.INSTANCE.entityToDto(contrato);
-    }
-
     public Contrato gerarContrato(ContratoDTO contratoDTO) {
         return repository.save(ContratoMapper.INSTANCE.dtoToEntity(contratoDTO));
     }

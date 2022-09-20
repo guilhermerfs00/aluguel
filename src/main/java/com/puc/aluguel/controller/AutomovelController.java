@@ -1,6 +1,7 @@
 package com.puc.aluguel.controller;
 
 
+import com.puc.aluguel.exceptions.BusinesException;
 import com.puc.aluguel.model.dto.AutomovelDTO;
 import com.puc.aluguel.model.dto.ClienteDTO;
 import com.puc.aluguel.model.enums.TipoRegistroEnum;
@@ -23,14 +24,22 @@ public class AutomovelController {
 
     @GetMapping(value = "/buscar-todos-automoveis")
     public ResponseEntity<List<AutomovelDTO>> buscarTodosAutomoveis() {
-        var response = service.buscarTodos();
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        try {
+            var response = service.buscarTodos();
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            throw new BusinesException(e.getMessage());
+        }
     }
 
     @PostMapping(value = "/salvar-automoveis")
     public ResponseEntity<List<AutomovelDTO>> salvarAutomoveis() {
-        service.salvarListAutomoveis();
-        return ResponseEntity.ok().build();
+        try {
+            service.salvarListAutomoveis();
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new BusinesException(e.getMessage());
+        }
     }
 
 }

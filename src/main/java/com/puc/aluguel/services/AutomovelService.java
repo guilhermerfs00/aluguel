@@ -3,10 +3,8 @@ package com.puc.aluguel.services;
 import com.puc.aluguel.exceptions.BusinesException;
 import com.puc.aluguel.mapper.AutomovelMapper;
 import com.puc.aluguel.model.dto.AutomovelDTO;
-import com.puc.aluguel.model.dto.ClienteDTO;
 import com.puc.aluguel.model.entity.Automovel;
 import com.puc.aluguel.repository.AutomovelRepository;
-import com.puc.aluguel.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +21,10 @@ public class AutomovelService {
         var automovel = repository.findById(id).orElseThrow(() -> new BusinesException("Erro ao buscar automovel"));
 
         return AutomovelMapper.INSTANCE.entityToDto(automovel);
+    }
+
+    public Automovel buscarEntityAutomovelPorId(Long id) {
+        return repository.findById(id).orElseThrow(() -> new BusinesException("Erro ao buscar automovel"));
     }
 
     public List<AutomovelDTO> buscarTodos() {
